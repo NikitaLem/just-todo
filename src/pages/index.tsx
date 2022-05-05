@@ -1,15 +1,17 @@
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 
-import TodoItem from './components/Todo/TodoItem/TodoItem';
-import TodoForm, { ITodoFormData } from './components/Todo/TodoForm/TodoForm';
+import TodoItem from '../components/Todo/TodoItem/TodoItem';
+import TodoForm, { ITodoFormData } from '../components/Todo/TodoForm/TodoForm';
 
-import { ITodoLIst, TodoModel } from './db/Models/TodoModel';
+import { ITodoLIst, TodoModel } from '../db/Models/TodoModel';
 
-import s from './App.module.scss';
+import s from '../styles/Home.module.scss';
 
 const todoModel = new TodoModel();
 
-function App() {
+const Home: NextPage = () => {
   const [todos, setTodos] = useState<ITodoLIst | undefined>(undefined);
 
   useEffect(() => {
@@ -29,7 +31,13 @@ function App() {
   );
 
   return (
-    <div className={s.App}>
+    <div className={s.Home}>
+      <Head>
+        <title>Just ToDo</title>
+        <meta name="description" content="Dayli reminder" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <div className={s.TodoList}>
         {todos &&
           Object.entries(todos).map(([key, value], i) => (
@@ -46,6 +54,6 @@ function App() {
       <TodoForm className="mt-4" onSubmit={handleSubmit} />
     </div>
   );
-}
+};
 
-export default App;
+export default Home;
