@@ -1,0 +1,8 @@
+.TodoItem {
+	width: 100%;
+
+	&Header {
+		display: flex;
+		justify-content: space-between;
+	}
+}

@@ -1,0 +1,30 @@
+@import 'src/scss/_variables.scss';
+
+.Container {
+  display: flex;
+  color: $primary-text;
+}
+
+.background {
+  &-primary {
+    background: $primary;
+  }
+  &-secondary {
+    background: $secondary;
+  }
+}
+
+.radius {
+  &-none {
+    border-radius: none;
+  }
+  &-small {
+    border-radius: $small-border-radius;
+  }
+  &-medium {
+    border-radius: $medium-border-radius;
+  }
+  &-large {
+    border-radius: $large-border-radius;
+  }
+}

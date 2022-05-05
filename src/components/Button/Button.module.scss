@@ -1,0 +1,10 @@
+@import 'src/scss/_variables.scss';
+
+.Button {
+	border: none;
+	border-radius: $medium-border-radius;
+	color: white;
+	background-color: $primary-background;
+	padding: 4px 8px;
+	cursor: pointer;
+}

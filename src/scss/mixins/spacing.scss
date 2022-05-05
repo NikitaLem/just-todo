@@ -1,0 +1,48 @@
+$multiplicator: 4;
+$unit: 'px';
+
+@mixin list-loop($className, $marginName, $addMarginName: null) {
+  @for $i from 0 to 12 {
+    @if ($i != 0) {
+      @if ($addMarginName != null) {
+        #{$className + $i} {
+          #{$marginName}: #{($i * $multiplicator) + $unit};
+          #{$addMarginName}: #{($i * $multiplicator) + $unit};
+        }
+      } @else {
+        #{$className + $i} {
+          #{$marginName}: #{($i * $multiplicator) + $unit};
+        }
+      }
+    } @else {
+      @if ($addMarginName != null) {
+        #{$className + $i} {
+          #{$marginName}: #{$i + $unit};
+          #{$addMarginName}: #{($i * $multiplicator) + $unit};
+        }
+      } @else {
+        #{$className + $i} {
+          #{$marginName}: #{$i + $unit};
+        }
+      }
+    }
+  }
+}
+
+// Margins
+@include list-loop('.mt-', 'margin-top');
+@include list-loop('.mr-', 'margin-right');
+@include list-loop('.mb-', 'margin-bottom');
+@include list-loop('.ml-', 'margin-left');
+@include list-loop('.ma-', 'margin');
+@include list-loop('.mx-', 'margin-right', 'margin-left');
+@include list-loop('.my-', 'margin-top', 'margin-bottom');
+
+// Paddings
+@include list-loop('.pt-', 'padding-top');
+@include list-loop('.pr-', 'padding-right');
+@include list-loop('.pb-', 'padding-bottom');
+@include list-loop('.pl-', 'padding-left');
+@include list-loop('.pa-', 'padding');
+@include list-loop('.px-', 'padding-right', 'padding-left');
+@include list-loop('.py-', 'padding-top', 'padding-bottom');
