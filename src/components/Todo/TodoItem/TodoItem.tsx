@@ -12,7 +12,7 @@ interface IProps {
   title: string;
   endDate: string;
   isDone: boolean;
-  description?: string;
+  description?: string | null;
   className?: string;
 }
 

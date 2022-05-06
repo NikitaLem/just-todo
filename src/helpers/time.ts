@@ -10,16 +10,18 @@ export const formatMilicesToHMS = (milisec?: string) => {
     return '';
   }
 
-  const now = Date.now();
-  const secondsLeft = Math.floor((Number(milisec) - now) / 1000);
-  const hours = Math.floor(secondsLeft / 3600)
-    .toString()
-    .padStart(2, '0');
-  const minutes = Math.floor((secondsLeft % 3600) / 60)
-    .toString()
-    .padStart(2, '0');
-  const seconds = Math.floor(secondsLeft % 60)
-    .toString()
-    .padStart(2, '0');
-  return `${hours}:${minutes}:${seconds}`;
+  return milisec;
+
+  // const now = Date.now();
+  // const secondsLeft = Math.floor((Number(milisec) - now) / 1000);
+  // const hours = Math.floor(secondsLeft / 3600)
+  //   .toString()
+  //   .padStart(2, '0');
+  // const minutes = Math.floor((secondsLeft % 3600) / 60)
+  //   .toString()
+  //   .padStart(2, '0');
+  // const seconds = Math.floor(secondsLeft % 60)
+  //   .toString()
+  //   .padStart(2, '0');
+  // return `${hours}:${minutes}:${seconds}`;
 };

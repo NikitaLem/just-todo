@@ -1,23 +1,27 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import { Todo } from '@prisma/client';
 
+import { prisma } from '../db/client';
 import TodoItem from '../components/Todo/TodoItem/TodoItem';
 import TodoForm, { ITodoFormData } from '../components/Todo/TodoForm/TodoForm';
 
-import { ITodoLIst, TodoModel } from '../db/Models/TodoModel';
+import { TodoModel } from '../db/Models/TodoModel';
 
 import s from '../styles/Home.module.scss';
 
 const todoModel = new TodoModel();
 
-const Home: NextPage = () => {
-  const [todos, setTodos] = useState<ITodoLIst | undefined>(undefined);
+interface IServerProps {
+  todo: Todo[];
+}
 
-  useEffect(() => {
-    const todos = todoModel.getAll();
-    setTodos(todos);
-  }, []);
+const Home: NextPage<IServerProps> = ({ todo }) => {
+  // useEffect(() => {
+  //   const todos = todoModel.getAll();
+  //   setTodos(todos);
+  // }, []);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>, formData: ITodoFormData, callback: () => void) => {
@@ -39,15 +43,15 @@ const Home: NextPage = () => {
       </Head>
 
       <div className={s.TodoList}>
-        {todos &&
-          Object.entries(todos).map(([key, value], i) => (
+        {todo &&
+          todo.map((t, i) => (
             <TodoItem
-              key={key}
+              key={t.id}
               className={`${i !== 0 && 'mt-6'} pa-2`}
-              title={value.title}
-              endDate={value.endDate}
-              description={value.description}
-              isDone={value.isDone}
+              title={t.title}
+              endDate={t.endDate}
+              description={t.description}
+              isDone={t.isDone}
             />
           ))}
       </div>
@@ -57,3 +61,13 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const todo = await prisma.todo.findMany();
+
+  return {
+    props: {
+      todo
+    }
+  };
+};
