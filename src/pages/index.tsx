@@ -4,10 +4,11 @@ import { useCallback } from 'react';
 import { Todo } from '@prisma/client';
 
 import { prisma } from '../db/client';
-import TodoItem from '../components/Todo/TodoItem/TodoItem';
-import TodoForm, { ITodoFormData } from '../components/Todo/TodoForm/TodoForm';
-
 import { TodoModel } from '../db/Models/TodoModel';
+import { trpc } from '../utils/trpc';
+
+import TodoForm, { ITodoFormData } from '../components/Todo/TodoForm/TodoForm';
+import TodoItem from '../components/Todo/TodoItem/TodoItem';
 
 import s from '../styles/Home.module.scss';
 
@@ -17,11 +18,23 @@ interface IServerProps {
   todo: Todo[];
 }
 
+export const getServerSideProps = async () => {
+  const todo = await prisma.todo.findMany();
+
+  return {
+    props: {
+      todo
+    }
+  };
+};
+
 const Home: NextPage<IServerProps> = ({ todo }) => {
   // useEffect(() => {
   //   const todos = todoModel.getAll();
   //   setTodos(todos);
   // }, []);
+
+  // const { data, isLoading } = trpc.useQuery(['hello', { text: '1' }]);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>, formData: ITodoFormData, callback: () => void) => {
@@ -61,13 +74,3 @@ const Home: NextPage<IServerProps> = ({ todo }) => {
 };
 
 export default Home;
-
-export const getServerSideProps = async () => {
-  const todo = await prisma.todo.findMany();
-
-  return {
-    props: {
-      todo
-    }
-  };
-};
