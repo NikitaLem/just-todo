@@ -10,14 +10,14 @@ import s from './TodoItem.module.scss';
 
 interface IProps {
   title: string;
-  endDate: string;
+  endDate: Date;
   isDone: boolean;
   description?: string | null;
   className?: string;
 }
 
 const TodoItem: FC<IProps> = ({ title, endDate, description, isDone, className }) => {
-  const timeLeftHMS = useMemo(() => formatMilicesToHMS(endDate), [endDate]);
+  const timeLeftHMS = useMemo(() => formatMilicesToHMS(endDate.valueOf()), [endDate]);
 
   const handleDoneClick = useCallback(() => {
     console.log('Сделай isDaneHandler');

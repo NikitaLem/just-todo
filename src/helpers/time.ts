@@ -5,12 +5,12 @@ export const setEndDate = (days: number) => {
   return endDate;
 };
 
-export const formatMilicesToHMS = (milisec?: string) => {
+export const formatMilicesToHMS = (milisec?: number) => {
   if (!milisec) {
     return '';
   }
 
-  return milisec;
+  return milisec.toString();
 
   // const now = Date.now();
   // const secondsLeft = Math.floor((Number(milisec) - now) / 1000);
