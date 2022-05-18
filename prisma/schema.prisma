@@ -17,5 +17,5 @@ model Todo {
   title       String
   description String?
   isDone      Boolean  @default(false)
-  endDate     String
+  endDate     DateTime
 }
